@@ -9,31 +9,42 @@ from .models import Restaurant, Category
 
 
 class RestaurantList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Restaurant.objects.filter()
+    permission_classes = [IsOwner]
     serializer_class = RestaurantSerializer
+
+    def get_queryset(self):
+        owner = self.request.user
+        return Restaurant.objects.filter(owner=owner)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-class RestaurantDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
-
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Restaurant.objects.all()
+class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwner]
     serializer_class = RestaurantSerializer
 
+    def get_queryset(self):
+        owner = self.request.user
+        return Restaurant.objects.filter(owner=owner)
 
-class CategoryList(LoginRequiredMixin, generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Category.objects.all()
+
+class CategoryList(generics.ListCreateAPIView):
+    permission_classes = [IsOwner]
     serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        owner = self.request.user
+        return Category.objects.filter(owner=owner)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-class CategoryDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Category.objects.all()
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwner]
     serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        owner = self.request.user
+        return Category.objects.filter(owner=owner)
