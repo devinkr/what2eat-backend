@@ -23,10 +23,7 @@ class RestaurantList(generics.ListCreateAPIView):
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
     serializer_class = RestaurantSerializer
-
-    def get_queryset(self):
-        owner = self.request.user
-        return Restaurant.objects.filter(owner=owner)
+    queryset = Restaurant.objects.all()
 
 
 class CategoryList(generics.ListCreateAPIView):
@@ -44,7 +41,4 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
     serializer_class = CategorySerializer
-
-    def get_queryset(self):
-        owner = self.request.user
-        return Category.objects.filter(owner=owner)
+    queryset = Category.objects.all()
