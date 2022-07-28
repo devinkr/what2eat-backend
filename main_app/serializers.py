@@ -23,6 +23,9 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         required=True, validators=[UniqueValidator(queryset=User.objects.all())]
