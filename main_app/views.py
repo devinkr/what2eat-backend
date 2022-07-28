@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from rest_framework import permissions, generics
+from django.contrib.auth.models import User
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
 from .permissions import IsOwner
-from .serializers import RestaurantSerializer, CategorySerializer
-from django.contrib.auth.mixins import LoginRequiredMixin
+from .serializers import RestaurantSerializer, CategorySerializer, RegisterSerializer
 from .models import Restaurant, Category
 
 # Create your views here.
@@ -42,3 +43,9 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = RegisterSerializer
