@@ -19,7 +19,10 @@ class Category(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(max_length=150)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, related_name="restaurants")
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

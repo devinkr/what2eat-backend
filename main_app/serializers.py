@@ -12,15 +12,16 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Restaurant
-        fields = "__all__"
+        fields = ["id", "name"]
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.ReadOnlyField(source="owner.username")
+    restaurants = RestaurantSerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ["id", "title", "restaurants"]
 
 
 # https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
