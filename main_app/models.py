@@ -9,6 +9,7 @@ class Category(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
+        ordering = ["title"]
         verbose_name_plural = "categories"
 
     def __str__(self):

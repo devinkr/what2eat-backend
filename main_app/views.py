@@ -33,7 +33,13 @@ class CategoryList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         owner = self.request.user
-        return Category.objects.filter(owner=owner)
+        result = []
+        categories = Category.objects.filter(owner=owner)
+        for category in categories:
+            restaurants = category.restaurant_set.all()
+            category["restaurants"] = restaurants
+            result.append(category)
+        return result
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

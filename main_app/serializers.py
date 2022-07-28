@@ -8,7 +8,7 @@ from .models import Restaurant, Category
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+    # owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
         model = Restaurant
@@ -16,7 +16,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+    # owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
         model = Category
