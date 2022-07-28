@@ -8,19 +8,20 @@ from .models import Restaurant, Category
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+    # owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
         model = Restaurant
-        fields = "__all__"
+        fields = ["id", "name"]
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    # owner = serializers.ReadOnlyField(source="owner.username")
+    restaurants = RestaurantSerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ["id", "title", "restaurants"]
 
 
 # https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
