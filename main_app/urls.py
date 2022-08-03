@@ -12,4 +12,5 @@ urlpatterns = [
     path(
         "categories/<int:pk>/", views.CategoryDetail.as_view(), name="category_detail"
     ),
+    path("", views.redirect_view),
 ]

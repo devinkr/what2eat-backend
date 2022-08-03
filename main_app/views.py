@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .permissions import IsOwner
 from .serializers import RestaurantSerializer, CategorySerializer, RegisterSerializer
 from .models import Restaurant, Category
@@ -9,8 +9,13 @@ from .models import Restaurant, Category
 # Create your views here.
 
 
+def redirect_view(request):
+    response = redirect("/api/categories/")
+    return response
+
+
 class RestaurantList(generics.ListCreateAPIView):
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated]
     serializer_class = RestaurantSerializer
 
     def get_queryset(self):
@@ -28,7 +33,7 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated]
     serializer_class = CategorySerializer
 
     def get_queryset(self):

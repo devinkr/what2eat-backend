@@ -27,4 +27,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/register/", views.RegisterView.as_view(), name="auth_register"),
     path("api/", include("main_app.urls")),
+    path("", views.redirect_view)
 ]
