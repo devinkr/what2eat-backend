@@ -15,7 +15,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "owner", "categories"]
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
     restaurants = RestaurantSerializer(many=True, read_only=True)
 
